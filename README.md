@@ -1,124 +1,110 @@
-# expert-booking-system
-This project is a full-stack **Expert Session Booking System** built as per the given assignment requirements.
+# Real-Time Expert Session Booking System
 
----
+A full-stack application that allows users to book real-time sessions with experts.
+Built using React / React Native, Node.js, Express, MongoDB with real-time slot updates.
 
+## Features
+### Expert Module
+- List experts with pagination
+- Search experts by name
+- Filter experts by category
+- View expert details with experience & ratings
+
+### Booking Module
+- Real-time available slots grouped by date
+- Prevent double booking of slots
+- Booking form with validation
+- Disable already booked slots
+- Success confirmation after booking
+
+### My Bookings
+- View bookings using email
+- Booking statuses:
+  - Pending
+  - Confirmed
+  - Completed
+
+### Real-Time Updates
+- Slots update in real-time using Socket.io
+3️⃣ Tech Stack (Clear likho)
 ## Tech Stack
 
 ### Frontend
-- React (Vite)
-- React Router
-- Axios / Fetch API
+- React / React Native
+- Axios
+- Tailwind CSS / CSS
 
 ### Backend
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
+- Socket.io
 
----
-
-## Features (As Per Requirements)
-
-### Expert Listing Screen
-- Display experts with:
-  - Name
-  - Category
-  - Experience
-  - Rating
-- Search experts by name
-- Filter experts by category
-- Pagination support
-- Loading and error states handled
-
----
-
-### Expert Detail Screen
-- Show expert details
-- Display available time slots grouped by date
-- Disable already booked slots
-- Real-time slot updates using **polling**
-
----
-
-### Booking Screen
-- Booking form with fields:
-  - Name
-  - Email
-  - Phone
-  - Date
-  - Time Slot
-  - Notes
-- Proper validation for required fields
-- Success message after booking
-- Prevents booking of already booked slots
-
----
-
-### My Bookings Screen
-- Fetch bookings using user email
-- Display booking details
-- Show booking status:
-  - Pending
-  - Confirmed
-  - Completed
-
----
-
-## 🔌 Backend APIs
-
-| Method | Endpoint | Description |
-|------|---------|-------------|
-| GET | /experts | Get experts (search, filter, pagination) |
-| GET | /experts/:id | Get expert details |
-| POST | /bookings | Create a booking |
-| GET | /bookings?email= | Get bookings by email |
-| PATCH | /bookings/:id/status | Update booking status |
-
----
-
-## Critical Requirements Handling
-
-### Prevent Double Booking
-- Backend validation checks:
-  - Same expert
-  - Same date
-  - Same time slot
-- MongoDB compound unique index used to handle race conditions
-
-### Real-Time Slot Update
-- Implemented using polling mechanism
-
-### Error Handling
-- Proper validation
-- Meaningful error responses
-- Try/catch used across backend
-
----
+### Other Tools
+- dotenv
+- GitHub
 
 ## Folder Structure
 
-### Backend
 backend/
-├─ models
-├─ controllers
-├─ routes
-├─ server.js
+├── controllers/
+├── routes/
+├── models/
+├── config/
+├── sockets/
+├── app.js
+├── server.js
 
-
-### Frontend
 frontend/
-├─ pages
-├─ App.jsx
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── hooks/
+│   └── App.js
 
-## How to Run the Project
+## API Endpoints
+
+### Experts
+- GET /experts
+- GET /experts/:id
+
+### Bookings
+- POST /bookings
+- GET /bookings?email=
+- PATCH /bookings/:id/status
+
+## Preventing Double Booking
+
+- Unique index on:
+  expert + date + timeSlot
+- Booking creation handled with atomic database operations
+- If slot already booked, API returns proper error message
+
+  ## Real-Time Slot Updates
+- Socket.io is used to emit slot update events
+- When a booking is confirmed, all connected clients receive updated slot data
+- This ensures no stale data is shown to users
+
+## Environment Variables
+
+Create a .env file in backend:
+
+MONGO_URI=your_mongodb_url
+PORT=5000
+
+## How to Run Locally
 
 ### Backend
-```bash
 cd backend
 npm install
 npm run dev
+
 ### Frontend
 cd frontend
 npm install
-npm run dev
+npm start
+
+**## Demo Video
+[Click here to watch demo](VIDEO_LINK)**
